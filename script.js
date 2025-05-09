@@ -2,7 +2,7 @@ function mostrarRespuesta(respuesta) {
   if (respuesta) {
     alert("Te amo 💕");
   } else {
-    alert("Luz dijo que no...");
+    alert("dijo que no...");
   }
 }
 
