@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Para Luz 💖</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div class="background">
@@ -26,7 +31,17 @@
     allowfullscreen>
   </iframe>
 
+  <script>
+    const contraseña = prompt("Introduce la contraseña para continuar:");
+
+    if (contraseña === "Gusgus") {
+      document.body.style.display = "block";
+    } else {
+      alert("Contraseña incorrecta. No puedes ver esta página.");
+      document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
+    }
+  </script>
+
   <script src="script.js"></script>
 </body>
 </html>
-
