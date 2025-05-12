@@ -50,21 +50,30 @@
   </audio>
 
   <!-- Script principal -->
-  <script>
-    const contraseña = prompt("Introduce la contraseña para continuar:");
-    if (contraseña === "Gusgus") {
-      document.body.style.display = "block";
-      const musica = document.getElementById("musica");
-      musica.volume = 0.2;
-      musica.play().catch(() => {
-        document.body.addEventListener('click', () => {
-          musica.play();
-        }, { once: true });
-      });
-    } else {
-      alert("Contraseña incorrecta. No puedes ver esta página.");
-      document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
-    }
+<script>
+  const contraseña = prompt("Introduce la contraseña para continuar:");
+
+  if (contraseña === "Gusgus") {
+    document.body.style.display = "block";
+    const musica = document.getElementById("musica");
+    musica.volume = 0.2;
+
+    // Forzar reproducción después de cualquier interacción
+    const activarMusica = () => {
+      musica.play().catch(() => {});
+      document.removeEventListener('click', activarMusica);
+      document.removeEventListener('touchstart', activarMusica);
+    };
+
+    // En caso de que autoplay no funcione de entrada
+    musica.play().catch(() => {
+      document.addEventListener('click', activarMusica);
+      document.addEventListener('touchstart', activarMusica);
+    });
+  } else {
+    alert("Contraseña incorrecta. No puedes ver esta página.");
+    document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
+  }
 
     // Movimiento del botón "No"
     const noBtn = document.getElementById("noButton");
