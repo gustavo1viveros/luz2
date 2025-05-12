@@ -29,6 +29,22 @@
     #noButton {
       position: relative;
     }
+
+    /* Estilo del botón para reproducir música */
+    #reproducirMusicaBtn {
+      font-size: 1.2em;
+      background-color: #ff4081;
+      color: white;
+      border-radius: 10px;
+      padding: 15px 25px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s;
+    }
+
+    #reproducirMusicaBtn:hover {
+      background-color: #e91e63;
+    }
   </style>
 </head>
 <body>
@@ -40,40 +56,50 @@
         <button onclick="mostrarRespuesta(true)">Sí 💘</button>
         <button id="noButton" onclick="mostrarRespuesta(false)">No</button>
       </div>
+
+      <!-- Botón para reproducir música -->
+      <button id="reproducirMusicaBtn" onclick="reproducirMusica()">🎶 Reproducir música</button>
     </main>
   </div>
 
-  <!-- Música local de fondo -->
-  <audio id="musica" autoplay loop>
+  <!-- Música local de fondo (en pausa inicialmente) -->
+  <audio id="musica" loop>
     <source src="musica.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.
   </audio>
 
   <!-- Script principal -->
-<script>
-  const contraseña = prompt("Introduce la contraseña para continuar:");
+  <script>
+    const contraseña = prompt("Introduce la contraseña para continuar:");
 
-  if (contraseña === "Gusgus") {
-    document.body.style.display = "block";
-    const musica = document.getElementById("musica");
-    musica.volume = 0.2;
+    if (contraseña === "Gusgus") {
+      document.body.style.display = "block";
+      const musica = document.getElementById("musica");
+      musica.volume = 0.2;
 
-    // Forzar reproducción después de cualquier interacción
-    const activarMusica = () => {
-      musica.play().catch(() => {});
-      document.removeEventListener('click', activarMusica);
-      document.removeEventListener('touchstart', activarMusica);
-    };
+      // Forzar reproducción después de cualquier interacción
+      const activarMusica = () => {
+        musica.play().catch(() => {});
+        document.removeEventListener('click', activarMusica);
+        document.removeEventListener('touchstart', activarMusica);
+      };
 
-    // En caso de que autoplay no funcione de entrada
-    musica.play().catch(() => {
-      document.addEventListener('click', activarMusica);
-      document.addEventListener('touchstart', activarMusica);
-    });
-  } else {
-    alert("Contraseña incorrecta. No puedes ver esta página.");
-    document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
-  }
+      // En caso de que autoplay no funcione de entrada
+      musica.play().catch(() => {
+        document.addEventListener('click', activarMusica);
+        document.addEventListener('touchstart', activarMusica);
+      });
+    } else {
+      alert("Contraseña incorrecta. No puedes ver esta página.");
+      document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
+    }
+
+    // Función para reproducir la música cuando se presiona el botón
+    function reproducirMusica() {
+      const musica = document.getElementById("musica");
+      musica.play();
+      document.getElementById("reproducirMusicaBtn").style.display = "none"; // Oculta el botón después de hacer clic
+    }
 
     // Movimiento del botón "No"
     const noBtn = document.getElementById("noButton");
@@ -92,9 +118,9 @@
     // Mensajes al responder
     function mostrarRespuesta(respuesta) {
       if (respuesta) {
-        alert("💖 ¡Gracias por decir que sí, Luz! Te amo 💖");
+        alert("Te amo mucho 💖");
       } else {
-        alert("😢 Ayyy, qué pena... igual te quiero 💔");
+        alert("está bien 💔");
       }
     }
   </script>
