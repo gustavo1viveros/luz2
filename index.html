@@ -43,32 +43,51 @@
     </main>
   </div>
 
-  <!-- Música especial de fondo -->
+  <!-- Música local de fondo -->
   <audio id="musica" autoplay loop>
-    <source src="https://s21.aconvert.com/convert/p3r68-cdx67/5eibu-ktsyo.mp3" type="audio/mpeg">
+    <source src="musica.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.
   </audio>
 
-  <!-- Contraseña -->
+  <!-- Script principal -->
   <script>
     const contraseña = prompt("Introduce la contraseña para continuar:");
     if (contraseña === "Gusgus") {
       document.body.style.display = "block";
-      document.getElementById("musica").volume = 0.2; // Volumen bajo
+      const musica = document.getElementById("musica");
+      musica.volume = 0.2;
+      musica.play().catch(() => {
+        document.body.addEventListener('click', () => {
+          musica.play();
+        }, { once: true });
+      });
     } else {
       alert("Contraseña incorrecta. No puedes ver esta página.");
       document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
     }
-  </script>
 
-  <!-- Movimiento del botón "No" -->
-  <script>
+    // Movimiento del botón "No"
     const noBtn = document.getElementById("noButton");
-    noBtn.addEventListener("mouseover", () => {
+    function moverBoton() {
       const randomX = Math.floor(Math.random() * 200) - 100;
       const randomY = Math.floor(Math.random() * 200) - 100;
       noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    noBtn.addEventListener("mouseover", moverBoton); // PC
+    noBtn.addEventListener("touchstart", (e) => {     // Celular
+      e.preventDefault();
+      moverBoton();
     });
+
+    // Mensajes al responder
+    function mostrarRespuesta(respuesta) {
+      if (respuesta) {
+        alert("💖 ¡Gracias por decir que sí, Luz! Te amo 💖");
+      } else {
+        alert("😢 Ayyy, qué pena... igual te quiero 💔");
+      }
+    }
   </script>
 
   <script src="script.js"></script>
