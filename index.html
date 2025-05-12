@@ -9,37 +9,66 @@
     body {
       display: none;
     }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    button {
+      font-size: 1.5em;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #noButton {
+      position: relative;
+    }
   </style>
 </head>
 <body>
   <div class="background">
     <canvas id="stars"></canvas>
     <main class="content">
-      <h1>💖 Luz, Puedo ser tu novio?</h1>
+      <h1>💖 Luz, ¿puedo ser tu novio?</h1>
       <div class="buttons">
         <button onclick="mostrarRespuesta(true)">Sí 💘</button>
-        <button onclick="mostrarRespuesta(false)">No</button>
+        <button id="noButton" onclick="mostrarRespuesta(false)">No</button>
       </div>
     </main>
   </div>
 
-  <!-- Incrustar el video de YouTube con reproducción automática -->
-  <iframe 
-    src="https://www.youtube.com/watch?v=-zxlKAR5e2w?autoplay=1&mute=0&controls=1" 
-    frameborder="0" 
-    allow="autoplay; encrypted-media" 
-    allowfullscreen>
-  </iframe>
+  <!-- Música especial de fondo -->
+  <audio id="musica" autoplay loop>
+    <source src="https://s21.aconvert.com/convert/p3r68-cdx67/5eibu-ktsyo.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
 
+  <!-- Contraseña -->
   <script>
     const contraseña = prompt("Introduce la contraseña para continuar:");
-
     if (contraseña === "Gusgus") {
       document.body.style.display = "block";
+      document.getElementById("musica").volume = 0.2; // Volumen bajo
     } else {
       alert("Contraseña incorrecta. No puedes ver esta página.");
       document.body.innerHTML = "<h2 style='text-align:center; color:red;'>Acceso denegado.</h2>";
     }
+  </script>
+
+  <!-- Movimiento del botón "No" -->
+  <script>
+    const noBtn = document.getElementById("noButton");
+    noBtn.addEventListener("mouseover", () => {
+      const randomX = Math.floor(Math.random() * 200) - 100;
+      const randomY = Math.floor(Math.random() * 200) - 100;
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    });
   </script>
 
   <script src="script.js"></script>
